@@ -1,9 +1,19 @@
 library(readxl)
-Base <- read_excel("C:/Users/apedo/OneDrive/Base économétrie avancée heidi.xlsx")
+library(plm)
+library(dplyr)
+library(ggplot2)
+library(corrplot)
+
+# Load data base
+Base <- read_excel("Data/OCDE_Data.xlsx")
 head(Base)
+# On enlève les lignes contenant l'année 2022
+Base <- Base %>% 
+  filter(Year != 2022)
+
 
 # Convertir en données de panel# Définir le jeu de données comme un `pdata.frame`, en spécifiant les colonnes d'indexpdata 
-library(plm)
+
 pdata<- pdata.frame(Base, index = c("Country", "Year"))
 
 #Vérifier le nombre de lignes et de variables
@@ -45,7 +55,7 @@ continuous_variable
 correlation_matrix <-cor(continuous_variable, use="complete.obs")
 correlation_matrix
 
-library(corrplot)
+
 # Visualiser la matrice de corrélation
 corrplot(correlation_matrix, method = "circle", 
          type = "upper",  # Afficher uniquement la partie supérieure de la matrice
@@ -55,7 +65,6 @@ corrplot(correlation_matrix, method = "circle",
 
 
 
-library(ggplot2)
 
 # Convertir le pdata.frame en data.frame standard
 pdata_df <- as.data.frame(pdata)
@@ -88,7 +97,7 @@ ggplot(data = pdata_df, aes_string(x = x_var, y = y_var)) +
        x = x_var, y = y_var) +
   theme_minimal()
 
-library(dplyr)
+
 # Boucle pour générer un graphique pour chaque pays
 for (country in unique(pdata_df$Country.name)) {
   # Filtrer les données pour le pays actuel
