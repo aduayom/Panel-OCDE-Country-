@@ -11,9 +11,8 @@ head(Base)
 Base <- Base %>% 
   filter(Year != 2022)
 
-
-# Convertir en données de panel# Définir le jeu de données comme un `pdata.frame`, en spécifiant les colonnes d'indexpdata 
-
+# Convertir en données de panel
+# Définir le jeu de données comme un `pdata.frame`, en spécifiant les colonnes d'indexpdata 
 pdata<- pdata.frame(Base, index = c("Country", "Year"))
 
 #Vérifier le nombre de lignes et de variables
@@ -27,27 +26,27 @@ if(is_balanced){
 }else{
   cat("base de données déséquilibrée")
 }
+'Nous avons une base de données équilibrée'
 
 # Valeurs manquantes
 NROW(na.omit(pdata))
 missing_data <- pdata[!complete.cases(pdata),]
 print(missing_data)
 
-# On retire l'année 2022
-pdata <- pdata[pdata$Year!=2022,]
-missing_data <- pdata[!complete.cases(pdata),]
-print(missing_data)
 
 # Afficher les années
 years_modalite <- unique(pdata$Year)
 years_modalite
+'Notre jeu de données va de 1999 à 2021'
 
 # Afficher les différents pays
 country_modalite <- unique(pdata$Country.name)
 country_modalite
+'Nous avons en tout 35 Pays de l OCDE'
 
 # Stat descriptive
 summary(pdata)
+
 
 # Matrice de correlation
 continuous_variable <- pdata[sapply(pdata, is.double)]
