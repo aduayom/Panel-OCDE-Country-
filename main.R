@@ -5,7 +5,7 @@ library(ggplot2)
 library(corrplot)
 
 # Load data base
-Base <- read_excel("Data/OCDE_Data.xlsx")
+Base <- read_excel("GitHub/Panel-OCDE-Country-/Data/OCDE_Data.xlsx")
 head(Base)
 # On enlève les lignes contenant l'année 2022
 Base <- Base %>% 
