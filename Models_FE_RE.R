@@ -69,10 +69,17 @@ hausman_test
 
 # Calculer le VIF
 # Modèle linéaire sans effets fixes : On modèles ols pour faire le test de mutlicolinéarité
-lm_model <- lm(ESP ~ Ineq + PIBt + TMI, data = pdata)
+lm_model_full <- lm(ESP ~ Ineq + PIBt + TMI + Glo + 
+                      Cho + Emp + Pop + CrPop + Upop +
+                      Educ + nutri + Nutrij + Alc, data = pdata)
 
-# Calculer le VIF
-vif(lm_model)
+# Afficher les résultats du modèle
+summary(lm_model_full)
+
+# Calculer les VIF pour le modèle linéaire complet
+vif(lm_model_full)
+
+
 
 vif(fe_model)
 
