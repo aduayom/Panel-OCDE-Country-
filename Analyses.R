@@ -156,3 +156,34 @@ print(summary_by_year, n = Inf)
 
 # Conclusion
 # Les données montrent une tendance générale à l'amélioration du bien-être (espérance de vie, mortalité infantile) accompagnée d'une hausse significative du PIB. Cependant, les inégalités de revenu demeurent stables malgré ces progrès économiques et sanitaires.
+
+
+################# Calcul des variations annuelles moyennes par pays
+Change_by_year <-Base %>%
+  group_by(Country) %>%
+  mutate(
+    change_esp = c(NA, diff(ESP)),  # Calcul des variations d'espérance de vie
+    change_pibt = c(NA, diff(PIBt)),  # Calcul des variations du PIB
+    change_ineq = c(NA, diff(Ineq)),  # Calcul des variations des inégalités
+    change_tmi = c(NA, diff(TMI))  # Calcul des variations du taux de mortalité infantile
+  ) %>%
+  summarize(
+    avg_change_esp = mean(change_esp, na.rm = TRUE),
+    avg_change_pibt = mean(change_pibt, na.rm = TRUE),
+    avg_change_ineq = mean(change_ineq, na.rm = TRUE),
+    avg_change_tmi = mean(change_tmi, na.rm = TRUE)
+  ) %>%
+  arrange(desc(avg_change_esp))  # Trier par l'évolution de l'espérance de vie
+
+print(Change_by_year, n = Inf)
+
+# Les variations annuelles sont calculées à l'aide de la fonction diff(), puis la moyenne de ces 
+# variations est obtenue pour chaque pays à l'aide de summarize().
+# Enfin, les résultats sont triés par l'évolution de l'espérance de vie pour identifier les pays 
+# ayant connu les changements les plus rapides.
+#
+# Les résultats montrent que certains pays comme la Corée du Sud et l'Estonie ont connu des améliorations 
+# significatives, tandis que d'autres comme les États-Unis et le Costa Rica ont enregistré des changements 
+# plus faibles, voire négatifs. Cette analyse permet de mettre en évidence les pays ayant réalisé les 
+# progrès les plus rapides en termes de santé et d'économie.
+
