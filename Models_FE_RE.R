@@ -43,3 +43,20 @@ summary(re_model)
 # 
 # L'effet individuel (idiosyncratique) explique environ 14.4% de la variance totale, tandis que l'effet individuel spécifique (individual) représente 85.6% de la variance.
 # Le coefficient theta de 0.9148 suggère une forte corrélation entre les effets individuels et les erreurs spécifiques.
+
+
+# Test de Hausman
+hausman_test <- phtest(fe_model, re_model)
+hausman_test
+
+# Résumé de l'interprétation du test de Hausman
+
+# Le test de Hausman compare les modèles à effets fixes et à effets aléatoires pour déterminer lequel est plus approprié.
+# - La statistique de test chi-carré est de 6.1345 avec 3 degrés de liberté (df = 3).
+# - La p-value associée est de 0.1052, ce qui est supérieur au seuil de significativité de 0.05.
+# - Comme la p-value est supérieure à 0.05, nous n'avons pas de preuve suffisante pour rejeter l'hypothèse nulle.
+# - L'hypothèse nulle suggère que les deux modèles (fixes et aléatoires) sont équivalents, ce qui signifie que le modèle à effets aléatoires est approprié.
+# 
+# En conclusion, étant donné la p-value de 0.1052, il n'y a pas de justification statistique pour préférer le modèle à effets fixes, 
+# et le modèle à effets aléatoires semble donc être le plus adapté.
+
