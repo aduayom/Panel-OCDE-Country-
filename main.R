@@ -63,8 +63,6 @@ corrplot(correlation_matrix, method = "circle",
          tl.srt = 45)  # Incliner les étiquettes
 
 
-
-
 # Convertir le pdata.frame en data.frame standard
 pdata_df <- as.data.frame(pdata)
 
