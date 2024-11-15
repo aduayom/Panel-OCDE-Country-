@@ -69,22 +69,24 @@ hausman_test
 
 # Calculer le VIF
 # Modèle linéaire sans effets fixes : On modèles ols pour faire le test de mutlicolinéarité
-lm_model_full <- lm(ESP ~ Ineq + PIBt + TMI + Glo + 
+lm_model_ <- lm(ESP ~ Ineq + PIBt + TMI + Glo + 
                       Cho + Emp + Pop + CrPop + Upop +
-                      Educ + nutri + Nutrij + Alc, data = pdata)
+                      Educ + nutri , data = pdata)
 
 # Afficher les résultats du modèle
-summary(lm_model_full)
+summary(lm_model_)
 
 # Calculer les VIF pour le modèle linéaire complet
 vif(lm_model_full)
+# Interprétation des résultats du VIF
+# Les VIF des variables dans le modèle sont globalement faibles et ne suggèrent pas de multicolinéarité préoccupante.
+# Toutes les variables ont un VIF inférieur à 5, ce qui indique une faible corrélation entre elles.
+# Le VIF de 'Glo' (3.79) est légèrement plus élevé, mais reste sous le seuil critique de 5, donc pas de problème majeur de collinéarité.
+# En résumé, il n'y a pas de nécessité immédiate de supprimer ou transformer des variables à cause de la multicolinéarité.
 
-
-
-vif(fe_model)
 
 # Test de Breusch-Pagan pour l'hétéroscédasticité
-bptest(fe_model)
+bptest(re_model)
 
 # Test de Wooldridge pour l'autocorrélation
 pbgtest(fe_model)
