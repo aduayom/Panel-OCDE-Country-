@@ -1,3 +1,9 @@
+library(plm)
+library(tidyverse)
+library(lmtest)
+library(sandwich)
+library(car)
+
 
 # Estimation du modèle à effets fixes
 fe_model <- plm(ESP ~ Ineq + PIBt + TMI, data = pdata, model = "within")
@@ -60,3 +66,21 @@ hausman_test
 # En conclusion, étant donné la p-value de 0.1052, il n'y a pas de justification statistique pour préférer le modèle à effets fixes, 
 # et le modèle à effets aléatoires semble donc être le plus adapté.
 
+
+# Calculer le VIF
+# Modèle linéaire sans effets fixes : On modèles ols pour faire le test de mutlicolinéarité
+lm_model <- lm(ESP ~ Ineq + PIBt + TMI, data = pdata)
+
+# Calculer le VIF
+vif(lm_model)
+
+vif(fe_model)
+
+# Test de Breusch-Pagan pour l'hétéroscédasticité
+bptest(fe_model)
+
+# Test de Wooldridge pour l'autocorrélation
+pbgtest(fe_model)
+
+# Test de normalité des résidus
+shapiro.test(residuals(fe_model))
