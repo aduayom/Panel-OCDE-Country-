@@ -86,10 +86,12 @@ vif(lm_model_full)
 
 
 # Test de Breusch-Pagan pour l'hétéroscédasticité
-bptest(re_model)
+bptest(fe_model)
 
 # Test de Wooldridge pour l'autocorrélation
 pbgtest(fe_model)
 
 # Test de normalité des résidus
 shapiro.test(residuals(fe_model))
+
+
