@@ -31,12 +31,10 @@
 library(AER)  # Pour le test de Durbin-Wu-Hausman
 library(lmtest)
 
-# Modèle GMM avec une formule multi-part
-gmm_model <- pgmm(ESP ~ lag(ESP, 1) + Ineq + PIBt + TMI + Emp + Upop + Educ |
-                    lag(ESP, 2:4),
-                  data = pdata,
-                  effect = "twoways",
-                  model = "twosteps") # Méthode GMM en deux étapes
+# Modèle GMM avec variables instrumentales
+gmm_model <- pgmm(ESP ~ lag(ESP, 1) + Ineq + PIBt + TMI |
+                    lag(ESP, 2:3) + Educ,
+                  data = pdata, effect = "twoways", model = "twosteps")
 
 # Résumé des résultats
 summary(gmm_model)
