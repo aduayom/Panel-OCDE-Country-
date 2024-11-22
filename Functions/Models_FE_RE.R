@@ -4,6 +4,7 @@ library(lmtest)
 library(sandwich)
 library(car)
 
+############################## MODELE A EFFETS FIXES ############################## 
 
 # Estimation du modèle à effets fixes
 fe_model <- plm(ESP ~ Ineq + PIBt + TMI, data = pdata, model = "within")
@@ -26,6 +27,10 @@ summary(fe_model)
 # La significativité des coefficients est confirmée par des p-values très faibles, indiquant que les variables ont un effet statistiquement significatif.
 # 
 # En résumé, l'augmentation des inégalités de revenu diminue l'espérance de vie, tandis que l'augmentation du PIB et la réduction de la mortalité infantile ont un impact positif sur l'espérance de vie.
+
+# ------ VOIR LES TEST ASSOCIES AU MODELE DANS LE FICHIERS Tests_Stat
+
+############################## MODELE A EFFETS FIXES ############################## 
 
 
 # Estimer le modèle à effets aléatoires
