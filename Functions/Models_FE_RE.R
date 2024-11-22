@@ -13,6 +13,9 @@ ols_model <- lm(ESP ~ Ineq + PIBt + TMI + Glo +
 # Afficher les résultats du modèle
 summary(ols_model)
 
+# Test de normalité des résidus
+shapiro.test(residuals(ols_model))# A tester sur les autres modèles ?
+
 # Calculer les VIF pour le modèle linéaire complet
 vif(ols_model)
 # Interprétation des résultats du VIF
@@ -97,18 +100,12 @@ summary(re_model)
 # Le coefficient theta de 0.9148 suggère une forte corrélation entre les effets individuels et les erreurs spécifiques.
 
 # ------ VOIR LES TEST ASSOCIES AU MODELE DANS LE FICHIERS Tests_Stat
+
+# Grace au test on a noté la présence d'hétéroscédacité dans le modèle RE (Bptest)
+# Résultats avec erreurs standards robustes
+robust_re <- coeftest(re_model, vcov = vcovHC(re_model, type = "HC1"))
+print(robust_re)
 ############################## MODELE A EFFETS ALEATOIRES ############################## 
 
-
-
-
-
-
-
-# Test de Wooldridge pour l'autocorrélation
-pbgtest(fe_model)
-
-# Test de normalité des résidus
-shapiro.test(residuals(fe_model))
 
 
