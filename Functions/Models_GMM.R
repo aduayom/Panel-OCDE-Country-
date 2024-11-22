@@ -31,13 +31,12 @@
 library(AER)  # Pour le test de Durbin-Wu-Hausman
 library(lmtest)
 
-# Exemple : Supposons que Ineq est potentiellement endogène, instrumentée par lag(Ineq, 1)
-# Modèle par MCO sans instruments
-mco_model <- lm(ESP ~ Ineq + PIBt + TMI, data = pdata)
+# Modèle GMM avec une formule multi-part
+gmm_model <- pgmm(ESP ~ lag(ESP, 1) + Ineq + PIBt + TMI + Emp + Upop + Educ |
+                    lag(ESP, 2:4),
+                  data = pdata,
+                  effect = "twoways",
+                  model = "twosteps") # Méthode GMM en deux étapes
 
-# Modèle avec une variable instrumentée
-iv_model <- ivreg(ESP ~ Ineq + PIBt + TMI | lag(Ineq, 1) + PIBt + TMI, data = pdata)
-
-# Test de Durbin-Wu-Hausman
-dwh_test <- hausman.test(mco_model, iv_model)
-print(dwh_test)
+# Résumé des résultats
+summary(gmm_model)
