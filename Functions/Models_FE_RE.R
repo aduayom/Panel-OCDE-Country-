@@ -32,6 +32,7 @@ summary(fe_model)
 
 ############################## MODELE A EFFETS FIXES ############################## 
 
+############################## MODELE A EFFETS ALEATOIRES ############################## 
 
 # Estimer le modèle à effets aléatoires
 re_model <- plm(ESP ~ Ineq + PIBt + TMI, data = pdata, model = "random")
@@ -55,6 +56,7 @@ summary(re_model)
 # L'effet individuel (idiosyncratique) explique environ 14.4% de la variance totale, tandis que l'effet individuel spécifique (individual) représente 85.6% de la variance.
 # Le coefficient theta de 0.9148 suggère une forte corrélation entre les effets individuels et les erreurs spécifiques.
 
+############################## MODELE A EFFETS ALEATOIRES ############################## 
 
 # Test de Hausman
 hausman_test <- phtest(fe_model, re_model)
