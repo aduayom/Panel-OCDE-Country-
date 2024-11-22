@@ -36,6 +36,39 @@ bptest(fe_model)
 
 ################################## TEST MODELES A EFFETS FIXES ##################################
 
+################################## TEST MODELES A EFFETS ALEATOIRES ##################################
+# Tester l'hétéroscédasticité dans les résidus du modèle RE
+bptest(re_model)
+
+# Interprétation des résultats du test :
+# - Statistique de test (BP) : 39.57
+#   Cette valeur mesure l'ampleur de l'hétéroscédasticité dans le modèle. Plus cette 
+#   statistique est élevée, plus il est probable que les résidus du modèle soient
+#   hétéroscédastiques. Dans ce cas, la statistique BP est élevée, ce qui suggère 
+#   qu'il pourrait y avoir une variance non constante des erreurs.
+
+# - Degrés de liberté (df) : 3
+#   Le nombre de degrés de liberté correspond ici au nombre de variables explicatives
+#   dans le modèle (Ineq, PIBt, TMI). Ce chiffre détermine la taille de l'échantillon
+#   nécessaire pour effectuer le test.
+
+# - P-value : 1.314e-08
+#   La p-value associée au test est très faible (bien inférieure au seuil de 0.05),
+#   ce qui permet de rejeter l'hypothèse nulle d'absence d'hétéroscédasticité.
+#   En d'autres termes, il existe une preuve statistique forte pour affirmer qu'il
+#   y a de l'hétéroscédasticité dans les résidus du modèle.
+
+# Conclusion :
+# Étant donné que la p-value est très faible, nous rejetons l'hypothèse nulle qui suggère 
+# qu'il n'y a pas d'hétéroscédasticité. Cela signifie que les erreurs du modèle à effets 
+# aléatoires ne sont pas de variance constante, ce qui peut avoir un impact sur la fiabilité 
+# des tests statistiques et l'efficacité des estimations des coefficients.
+# 
+# Pour corriger ce problème, il est recommandé d'utiliser des erreurs standards robustes
+# afin d'obtenir des estimations fiables malgré la présence d'hétéroscédasticité.
+
+################################## TEST MODELES A EFFETS ALEATOIRES ##################################
+
 # Test de Breusch-Pagan pour les effets individuels et temporels
 # --------------------------------------------------------------
 # Le test de Breusch-Pagan (ou Lagrange Multiplier) est utilisé pour déterminer

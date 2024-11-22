@@ -56,6 +56,7 @@ summary(re_model)
 # L'effet individuel (idiosyncratique) explique environ 14.4% de la variance totale, tandis que l'effet individuel spécifique (individual) représente 85.6% de la variance.
 # Le coefficient theta de 0.9148 suggère une forte corrélation entre les effets individuels et les erreurs spécifiques.
 
+# ------ VOIR LES TEST ASSOCIES AU MODELE DANS LE FICHIERS Tests_Stat
 ############################## MODELE A EFFETS ALEATOIRES ############################## 
 
 # Test de Hausman
