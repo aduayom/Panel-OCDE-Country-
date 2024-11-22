@@ -4,6 +4,46 @@ library(lmtest)
 library(sandwich)
 library(car)
 
+############################## MODELE OLS ##############################
+# Modèle linéaire sans effets fixes : On modèles ols pour faire le test de mutlicolinéarité
+ols_model <- lm(ESP ~ Ineq + PIBt + TMI + Glo + 
+                  Cho + Emp + Pop + CrPop + Upop +
+                  Educ + nutri , data = pdata)
+
+# Afficher les résultats du modèle
+summary(ols_model)
+
+# Calculer les VIF pour le modèle linéaire complet
+vif(ols_model)
+# Interprétation des résultats du VIF
+# Les VIF des variables dans le modèle sont globalement faibles et ne suggèrent pas de multicolinéarité préoccupante.
+# Toutes les variables ont un VIF inférieur à 5, ce qui indique une faible corrélation entre elles.
+# Le VIF de 'Glo' (3.79) est légèrement plus élevé, mais reste sous le seuil critique de 5, donc pas de problème majeur de collinéarité.
+# En résumé, il n'y a pas de nécessité immédiate de supprimer ou transformer des variables à cause de la multicolinéarité.
+
+# Calculer les résidus du modèle
+residuals_ols <- residuals(ols_model)
+
+# Vérifier la corrélation entre les résidus et les variables explicatives : endogénéité
+cor_test_ineq <- cor.test(residuals_ols, pdata$Ineq)
+cor_test_pibt <- cor.test(residuals_ols, pdata$PIBt)
+cor_test_tmi <- cor.test(residuals_ols, pdata$TMI)
+
+# Affichage des résultats
+print(cor_test_ineq)
+print(cor_test_pibt)
+print(cor_test_tmi)
+
+# Commentaire:
+# Les tests de corrélation de Pearson montrent qu'il n'y a pas de corrélation significative
+# entre les résidus du modèle OLS et les variables explicatives (Ineq, PIBt, TMI).
+# Les p-values très élevées (toutes égales à 1) indiquent qu'il n'y a pas de preuve
+# de corrélation entre les résidus et les variables, suggérant que ces variables ne sont pas endogènes
+# dans le modèle. Cela signifie que les variables explicatives ne sont pas influencées par des
+# facteurs non observés et les résidus ne sont pas corrélés avec elles.
+
+############################## MODELE OLS ############################## 
+ 
 ############################## MODELE A EFFETS FIXES ############################## 
 
 # Estimation du modèle à effets fixes
@@ -59,42 +99,11 @@ summary(re_model)
 # ------ VOIR LES TEST ASSOCIES AU MODELE DANS LE FICHIERS Tests_Stat
 ############################## MODELE A EFFETS ALEATOIRES ############################## 
 
-# Test de Hausman
-hausman_test <- phtest(fe_model, re_model)
-hausman_test
-
-# Résumé de l'interprétation du test de Hausman
-
-# Le test de Hausman compare les modèles à effets fixes et à effets aléatoires pour déterminer lequel est plus approprié.
-# - La statistique de test chi-carré est de 6.1345 avec 3 degrés de liberté (df = 3).
-# - La p-value associée est de 0.1052, ce qui est supérieur au seuil de significativité de 0.05.
-# - Comme la p-value est supérieure à 0.05, nous n'avons pas de preuve suffisante pour rejeter l'hypothèse nulle.
-# - L'hypothèse nulle suggère que les deux modèles (fixes et aléatoires) sont équivalents, ce qui signifie que le modèle à effets aléatoires est approprié.
-# 
-# En conclusion, étant donné la p-value de 0.1052, il n'y a pas de justification statistique pour préférer le modèle à effets fixes, 
-# et le modèle à effets aléatoires semble donc être le plus adapté.
 
 
-# Calculer le VIF
-# Modèle linéaire sans effets fixes : On modèles ols pour faire le test de mutlicolinéarité
-lm_model_ <- lm(ESP ~ Ineq + PIBt + TMI + Glo + 
-                      Cho + Emp + Pop + CrPop + Upop +
-                      Educ + nutri , data = pdata)
-
-# Afficher les résultats du modèle
-summary(lm_model_)
-
-# Calculer les VIF pour le modèle linéaire complet
-vif(lm_model_full)
-# Interprétation des résultats du VIF
-# Les VIF des variables dans le modèle sont globalement faibles et ne suggèrent pas de multicolinéarité préoccupante.
-# Toutes les variables ont un VIF inférieur à 5, ce qui indique une faible corrélation entre elles.
-# Le VIF de 'Glo' (3.79) est légèrement plus élevé, mais reste sous le seuil critique de 5, donc pas de problème majeur de collinéarité.
-# En résumé, il n'y a pas de nécessité immédiate de supprimer ou transformer des variables à cause de la multicolinéarité.
 
 
-# Test de Breusch-Pagan pour l'hétéroscédasticité
-bptest(fe_model)
+
 
 # Test de Wooldridge pour l'autocorrélation
 pbgtest(fe_model)
