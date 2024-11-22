@@ -80,7 +80,7 @@ for (var_name in names(continuous_vars)) {
   )
   
   # Pause pour afficher chaque graphique individuellement dans certains environnements
-  Sys.sleep(1)  # Pause d'une seconde avant de passer à la variable suivante
+  Sys.sleep(5)  # Pause d'une seconde avant de passer à la variable suivante
 }
 
 # Spécifiez vos variables ici
