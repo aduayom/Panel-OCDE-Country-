@@ -43,7 +43,7 @@ print(cor_test_tmi)
 # facteurs non observés et les résidus ne sont pas corrélés avec elles.
 
 ############################## MODELE OLS ############################## 
- 
+
 ############################## MODELE A EFFETS FIXES ############################## 
 
 # Estimation du modèle à effets fixes
