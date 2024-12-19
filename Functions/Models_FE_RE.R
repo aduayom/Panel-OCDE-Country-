@@ -107,5 +107,5 @@ robust_re <- coeftest(re_model, vcov = vcovHC(re_model, type = "HC1"))
 print(robust_re)
 ############################## MODELE A EFFETS ALEATOIRES ############################## 
 
-
+# A coder
 
