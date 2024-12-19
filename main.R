@@ -61,7 +61,8 @@ corrplot(correlation_matrix, method = "circle",
          order = "hclust",  # Ordre par regroupement hiérarchique
          tl.col = "black",  # Couleur des étiquettes de ligne et de colonne
          tl.srt = 45)  # Incliner les étiquettes
-
+# - La faible correlation entre le nombre de litre d'alcool consommée par an par personne et l'ESP (assez interessant)
+# - Si on fix un seul de corr abs(seuil) =0.4, on a le taux de cho, la croissance de la pop, et d'autres variables qui présentent une faible correlation
 
 # Convertir le pdata.frame en data.frame standard
 pdata_df <- as.data.frame(pdata)
