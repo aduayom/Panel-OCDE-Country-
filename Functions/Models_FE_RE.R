@@ -108,4 +108,4 @@ print(robust_re)
 ############################## MODELE A EFFETS ALEATOIRES ############################## 
 
 
-
+s
